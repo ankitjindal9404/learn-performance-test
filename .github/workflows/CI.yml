@@ -35,6 +35,11 @@ jobs:
     - name: Run K6 load test
       run: k6 run loadTest.js
 
+    - name: Debug Node.js process
+      run: |
+        # List all running Node.js processes
+        ps aux | grep node
+
     - name: Stop the application
       run: |
         # Find the Node.js process by its port (assuming it's running on port 3000)
