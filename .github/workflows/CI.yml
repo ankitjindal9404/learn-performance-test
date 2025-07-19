@@ -36,4 +36,11 @@ jobs:
       run: k6 run loadTest.js
 
     - name: Stop the application
-      run: pkill node
+      run: |
+        # Find the Node.js process by its port (assuming it's running on port 3000)
+        pid=$(lsof -t -i:3000)
+        if [ -n "$pid" ]; then
+          kill $pid
+        else
+          echo "Node.js process not found"
+        fi
