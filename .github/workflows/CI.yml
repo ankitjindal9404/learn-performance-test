@@ -23,7 +23,9 @@ jobs:
       run: npm install
 
     - name: Run the application (in the background)
-      run: nohup node index.js &
+      run: |
+        nohup node index.js > app.log 2>&1 & 
+        echo "Node.js application started in the background"
 
     - name: Install K6
       run: |
@@ -39,6 +41,7 @@ jobs:
       run: |
         # List all running Node.js processes
         ps aux | grep node
+        cat app.log  # Output the logs of the application to check for errors
 
     - name: Stop the application
       run: |
