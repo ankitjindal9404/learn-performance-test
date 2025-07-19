@@ -38,8 +38,9 @@ jobs:
     - name: Stop the application
       run: |
         # Find the Node.js process by its port (assuming it's running on port 3000)
-        pid=$(lsof -t -i:3000)
+        pid=$(ps aux | grep 'node index.js' | grep -v grep | awk '{print $2}')
         if [ -n "$pid" ]; then
+          echo "Stopping Node.js process with PID: $pid"
           kill $pid
         else
           echo "Node.js process not found"
